@@ -1,0 +1,59 @@
+
+$primary-color: #5784b4;
+$secondary-color: #53808b;
+$light-color: #054c59;
+$dark-color: #0b2c4c;
+
+body {
+  background-color: #ffffff;
+}
+
+h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid $dark-color;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: $secondary-color;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: 1px solid $secondary-color;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .button[type="submit"] {
+    background-color: $primary-color;
+    color: $light-color;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
