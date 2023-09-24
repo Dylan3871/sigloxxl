@@ -1,13 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import { Registro } from "./components/Registro";
-import Navbar from "./components/Navbar";
-import { Inicio } from "./components/Inicio";
-import Formulario from "./components/Formulario";
-import Menu from "./components/Menu";
-import { ResultadosScreen } from "./components/ResultadosScreen";
-import Pacientes from "./components/Pacientes";
-
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import { Registro } from './components/Registro';
+import Navbar from './components/Navbar';
+import Inicio from './components/Inicio'; // Importa "Inicio" sin llaves
+import Formulario from './components/Formulario';
+import Menu from './components/Menu';
+import { ResultadosScreen } from './components/ResultadosScreen';
+import Pacientes from './components/Pacientes';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Route exact path="/Formulario" element={<Formulario />} />
               <Route exact path="/resultado" element={<ResultadosScreen />} />
               <Route exact path="/Pacientes" element={<Pacientes />} />
-              <Route exact path="/Menu" element={<Menu />} /> hmm?
+              <Route exact path="/Menu" element={<Menu />} />
             </Routes>
           </BrowserRouter>
         </div>
