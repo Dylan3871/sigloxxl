@@ -67,10 +67,10 @@ export const Registro = () => {
     if (formulario.password.trim() === '') {
       erroresTemp.password = 'La contraseña es obligatoria';
     } else if (formulario.password.trim().length < 6) {
-      erroresTemp.password = 'La contraseña debe tener al menos 6 caracteres';
+      erroresTemp.password = 'La contraseña debe tener al menos 8 caracteres';
     }
     if (formulario.isPatient.trim() === '') {
-      erroresTemp.isPatient = 'Debe seleccionar si es paciente o no';
+      erroresTemp.isPatient = 'Debe seleccionar una opción';
     }
     setErrores(erroresTemp);
 
@@ -92,20 +92,16 @@ export const Registro = () => {
      
       <form id="my-form" onSubmit={handleSubmit} className="registro-form">
         <h2>Registros</h2>
-        <label htmlFor="name">Nombre:</label>
+        <label htmlFor="name">Nombre Completo:</label>
         <input type="text" id="name" name="nombre" onChange={handleChange} />
         {errores.nombre && <span className="error">{errores.nombre}</span>}
-    
-        <label htmlFor="username">Nombre de usuario:</label>
-        < input type="text" id="username" name="username" onChange={handleChange} />
-        {errores.username && <span className="error">{errores.username}</span>}
       
         <label htmlFor="tipo">Genero:</label>
         <select id="genero" name="genero" onChange={handleChange}>
          <option value="">Seleccione una opción</option>
         <option value="masculino">Masculino</option>
         <option value="femenino">Femenino</option>
-        <option value="no-binario">No binario</option>
+        <option value="no-binario">Otro</option>
         </select>
 
         <label htmlFor="fecha-nacimiento">Fecha de nacimiento:</label>
@@ -128,7 +124,7 @@ export const Registro = () => {
         <select id="tipo" name="isPatient" onChange={handleChange}>
           <option value="">Seleccione una opción</option>
           <option value="paciente">Paciente</option>
-          <option value="psicologo">Psicólogo</option>
+          <option value="psicologo">Doctor</option>
         </select>
         {errores.isPatient && <span className="error">{errores.isPatient}</span>}
         

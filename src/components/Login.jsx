@@ -65,6 +65,9 @@ function Login() {
               <button className='buttonLogin' type='submit'>
                 Acceder
               </button>
+              <button className='buttonLogin' type='link' href='./Regitro'>
+                Registrarse
+              </button>
             </div>
           </form>
         </div>

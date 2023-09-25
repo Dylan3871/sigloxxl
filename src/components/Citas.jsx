@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from './Navbar';
 
-function Pacientes() {
+function Citas() {
 
     return (
         <div>
@@ -145,4 +145,4 @@ function Pacientes() {
     )
 }
 
-export default Pacientes
+export default Citas
