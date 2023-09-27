@@ -1,15 +1,15 @@
 .registro-container {
-  background-color: #e3b1c8;
+  background-color: #f0f0f0; /* Cambiar a un color de fondo suave */
   min-height: 100vh;
   height: auto;
 }
 
 .registro-form {
-  border: 1px solid #d157ae;
+  border: 1px solid #d9d9d9; /* Cambiar a un tono más claro de borde */
   padding: 20px;
   margin-top: 20px;
   background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(255, 0, 187, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave en tono gris claro */
   border-radius: 10px;
   max-width: 600px;
   margin: 0 auto;
@@ -20,7 +20,7 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #f773ee;
+  color: #333; /* Cambiar a un tono oscuro para el título */
 }
 
 .registro-form label {
@@ -28,7 +28,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #f69afa;
+  color: #555; /* Cambiar a un tono de texto más oscuro */
 }
 
 .registro-form input {
@@ -37,17 +37,17 @@
   padding: 10px;
   margin-bottom: 20px;
   border: none;
-  border-bottom: 2px solid #c999af;
+  border-bottom: 2px solid #c999af; /* Mantener el borde existente */
   font-size: 1.2rem;
-  color: #c999af;
-  background-color: #ffe5f0;
+  color: #555; /* Cambiar a un tono de texto más oscuro */
+  background-color: #f5f5f5; /* Cambiar a un fondo ligeramente más claro */
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.404);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave en tono gris claro */
 }
 
 .registro-form input:focus {
   outline: none;
-  box-shadow: 0 0 10px rgba(214, 24, 202, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra suave al enfocar */
 }
 
 .registro-form button {
@@ -55,21 +55,22 @@
   margin: 20px auto;
   padding: 10px 20px;
   border: none;
-  background-color: #c999af;
+  background-color: #007bff; /* Cambiar a un tono azul brillante */
   color: #fff;
   border-radius: 5px;
   font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(132, 130, 130, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra suave en tono gris claro */
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .registro-form button:hover {
-  background-color: #ffe5f0;
+  background-color: #0056b3; /* Cambiar el color al pasar el mouse */
   transform: translateY(-2px);
 }
 
 .registro-form button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5); /* Sombra al enfocar */
 }
+

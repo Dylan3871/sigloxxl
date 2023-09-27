@@ -65,9 +65,9 @@ function Login() {
               <button className='buttonLogin' type='submit'>
                 Acceder
               </button>
-              <button className='buttonLogin' type='link' href='./Regitro'>
+              <a className='buttonLogin' href='./Registro'>
                 Registrarse
-              </button>
+              </a>
             </div>
           </form>
         </div>
@@ -77,5 +77,3 @@ function Login() {
 }
 
 export default Login;
-
-

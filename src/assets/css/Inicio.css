@@ -1,15 +1,15 @@
 /* Estilo para el contenedor principal de Inicio */
 .inicio-container {
   background-color: #f7f7f7; /* Color de fondo suave */
-  padding: 20px;
-  border-radius: 10px; /* Bordes redondeados */
+    padding: 20px;
+border-radius: 10px; /* Bordes redondeados */
 }
 
 /* Estilo para la tarjeta que contiene la imagen y el título */
 .inicio-container .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   margin-bottom: 20px;
-  background-color: #fff; /* Fondo blanco */
+background-color: #fff; /* Fondo blanco */
   border: none; /* Sin borde */
   border-radius: 10px; /* Bordes redondeados */
 }
@@ -73,8 +73,6 @@
   color: #fff; /* Color de texto blanco */
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
