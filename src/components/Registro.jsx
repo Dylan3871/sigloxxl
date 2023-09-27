@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../assets/css/Registro.css';
 
@@ -121,6 +122,9 @@ export const Registro = () => {
         {enviado && <span className="confirmacion">¡Registro exitoso!</span>}
 
         <button type="submit">Enviar</button>
+        <Link to="/" className="boton-regresaar">Regresar</Link>
+
+
       </form>
     </div>
   );
