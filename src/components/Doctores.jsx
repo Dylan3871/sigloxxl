@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
+import '../assets/css/Tablas.css'
 import Navbar from './Navbar';
  
 
