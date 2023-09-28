@@ -1,0 +1,59 @@
+/* Estilos generales para cada pregunta */
+.pregunta {
+    margin-bottom: 20px; /* Espacio entre preguntas */
+  }
+  
+  .pregunta-label {
+    font-weight: bold;
+  }
+  
+  .pregunta-select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Estilos específicos para cada pregunta */
+  /* Pregunta 1 - Edad */
+  .pregunta.edad .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 2 - IMC */
+  .pregunta.imc .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 3 - Perímetro abdominal */
+  .pregunta.perimetro .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 4 - Actividad física */
+  .pregunta.actividad .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 5 - Consumo de frutas y verduras */
+  .pregunta.consumo .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 6 - Hipertensión arterial */
+  .pregunta.hipertension .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 7 - Niveles altos de glucosa */
+  .pregunta.glucosa .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  /* Pregunta 8 - Antecedentes de Diabetes Mellitus en la familia */
+  .pregunta.antecedentes .pregunta-label {
+    color: #3F51B5; /* Cambia el color del texto */
+  }
+  
+  
