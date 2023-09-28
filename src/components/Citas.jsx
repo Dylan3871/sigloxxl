@@ -72,7 +72,7 @@ function Citas() {
                                 </div> */}
 
                                 <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Notas (¿Algo que el Médico deba saber?</label>
+                                    <label for="exampleFormControlTextarea1" class="form-label">Notas (¿Algo que el Médico deba saber?)</label>
                                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                             </div>
