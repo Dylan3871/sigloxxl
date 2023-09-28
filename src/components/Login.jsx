@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../assets/scss/Login.scss';
-import parejas from '../assets/images/pareja.jpg';
+import Navbar from './Navbar';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ function Login() {
         setToken(response.data.token);
         setError(null);
         // Redirigir a la página de inicio
-        window.location.replace('/inicio');
+        window.location.replace('/');
       })
       .catch((error) => {
         setError('Email o contraseña incorrectos');
@@ -30,50 +30,49 @@ function Login() {
   };
 
   return (
-    <body className='bodyLogin'>
-      <div className='wrapperLogin'>
-        <div className='innerLogin'>
-          <div className='image-holderLogin'>
-            <img className='imgLogin' src={parejas} alt='parejas'></img>
-          </div>
-          <form className='formLogin' id='form_login' onSubmit={handleSubmit}>
-            <h3 className='h3Login'>
-              <a className='aLogin'>Iniciar Sesión</a>
-            </h3>
-            <div className='form-holderLogin active'>
-              <input
-                type='email'
-                id='email'
-                value={email}
-                onChange={handleEmailChange}
-                placeholder='CORREO'
-                className='form-controlLogin'
-              />
-            </div>
-            <div className='form-holderLogin'>
-              <input
-                type='password'
-                id='password'
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder='CONTRASEÑA'
-                className='form-controlLogin'
-              />
-            </div>
-            <div className='form-loginLogin'>
-              {error && <div>{error}</div>}
-              <button className='buttonLogin' type='submit'>
-                Acceder
-              </button>
-              <button className='buttonLogin' type='button' onClick={() => window.location.href = './Registro'}>
-              Registrarse
-              </button>
+    <div>
+      <Navbar />
+      <body className='bodyLogin'>
+        <div className='wrapperLogin'>
+          <div className='innerLogin'>
 
-            </div>
-          </form>
+            <form className='formLogin' id='form_login' onSubmit={handleSubmit}>
+              <h3 className='h3Login'>
+                <a className='aLogin'>Iniciar Sesión</a>
+                <a className='aLogin'> (Solo doctores)</a>
+              </h3>
+              <div className='form-holderLogin active'>
+                <input
+                  type='email'
+                  id='email'
+                  value={email}
+                  onChange={handleEmailChange}
+                  placeholder='CORREO'
+                  className='form-controlLogin'
+                />
+              </div>
+              <div className='form-holderLogin'>
+                <input
+                  type='password'
+                  id='password'
+                  value={password}
+                  onChange={handlePasswordChange}
+                  placeholder='CONTRASEÑA'
+                  className='form-controlLogin'
+                />
+              </div>
+              <div className='form-loginLogin'>
+                {error && <div>{error}</div>}
+                <button className='buttonLogin' type='submit'>
+                  Acceder
+                </button>
+
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </body>
+      </body>
+    </div>
   );
 }
 

@@ -10,7 +10,7 @@ function Citas() {
             <div>
                 {/* Agendar una nueva cita*/}
                 {/* botón Modal */}
-                <button type="button" class="buttonPacientes" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="buttonCitas" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Agendar Cita
                 </button>
 
