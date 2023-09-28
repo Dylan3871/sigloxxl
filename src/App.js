@@ -7,6 +7,7 @@ import Inicio from './components/Inicio'; // Importa "Inicio" sin llaves
 import { ResultadosScreen } from './components/ResultadosScreen';
 import Citas from './components/Citas';
 import Encuesta from './components/Encuesta';
+import Doctores from './components/Doctores';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route exact path="/Encuesta" element={<Encuesta />} />
               <Route exact path="/resultado" element={<ResultadosScreen />} />
               <Route exact path="/Citas" element={<Citas />} />
+              <Route exact path="/Doctores" element={<Doctores />} />
             </Routes>
           </BrowserRouter>
         </div>

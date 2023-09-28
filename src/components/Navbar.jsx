@@ -18,6 +18,7 @@ function Navbar() {
           {/* <a onClick={handleClick} href="./Registro">Registro</a> */}
           <a onClick={handleClick} href="./Encuesta">Encuesta</a>
           <a onClick={handleClick} href="./Citas">Citas</a>
+          <a onClick={handleClick} href="./Doctores">Doctores</a>
           <a onClick={handleClick} href="./Registro">Registrar Médico</a>
           <a onClick={handleClick} href="./Login">Iniciar sesión</a>
         </div>
