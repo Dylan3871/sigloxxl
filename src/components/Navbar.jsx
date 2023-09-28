@@ -12,12 +12,14 @@ function Navbar() {
   return (
     <>
       <NavContainer>
-      <a onClick={handleClick} href="./Inicio"><h2>Encuestas</h2></a>
+      <a onClick={handleClick} href="./Inicio"><h2>Encuesta de riesgo Diabetes</h2></a>
         <div className={`links ${clicked ? 'active' : ''}`}>
-          <a onClick={handleClick} href="./Inicio">Inicio</a>
+          <a onClick={handleClick} href="./">Inicio</a>
           {/* <a onClick={handleClick} href="./Registro">Registro</a> */}
           <a onClick={handleClick} href="./Encuesta">Encuesta</a>
           <a onClick={handleClick} href="./Citas">Citas</a>
+          <a onClick={handleClick} href="./Registro">Registrar Médico</a>
+          <a onClick={handleClick} href="./Login">Iniciar sesión</a>
         </div>
         <div className='burguer'>
           <BurguerButton clicked={clicked} handleClick={handleClick} />

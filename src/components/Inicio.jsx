@@ -11,6 +11,7 @@ import imagen3 from '../assets/images/diabetesimg.jpg';
 import diabetesImage from '../assets/images/Diabetes.jpg';
 
 const Inicio = () => {
+  
   const images = [
     { src: imagen1, alt: 'Imagen 1' },
     { src: imagen2, alt: 'Imagen 2' },
@@ -18,22 +19,22 @@ const Inicio = () => {
   ];
 
   return (
+    <><Navbar />
     <div className="inicio-container">
-      <Navbar />
+
 
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
             <div className="card">
-             
+
               <div className="card-body">
                 <h1 className="card-title">Diabetes Mellitus</h1>
                 <img
-                src={diabetesImage}
-                alt="Diabetes Mellitus"
-                className="card-img-top"
-                style={{ maxWidth: '250px', maxHeight: '300px' }}
-              />
+                  src={diabetesImage}
+                  alt="Diabetes Mellitus"
+                  className="card-img-top"
+                  style={{ maxWidth: '250px', maxHeight: '300px' }} />
               </div>
             </div>
           </div>
@@ -44,8 +45,7 @@ const Inicio = () => {
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="carousel-image img-fluid"
-                  />
+                    className="carousel-image img-fluid" />
                 </div>
               ))}
             </Carousel>
@@ -136,7 +136,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div></>
   );
 };
 

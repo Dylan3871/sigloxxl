@@ -15,8 +15,8 @@ function App() {
         <div>
           <BrowserRouter>
             <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route exact path="/Inicio" element={<Inicio />} />
+              <Route exact path="/" element={<Inicio />} />
+              <Route exact path="/Login" element={<Login />} />
               <Route exact path="/Registro" element={<Registro />} />
               <Route exact path="/Navbar" element={<Navbar />} />
               <Route exact path="/Encuesta" element={<Encuesta />} />
