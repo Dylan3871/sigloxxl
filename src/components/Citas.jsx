@@ -96,10 +96,11 @@ function Citas() {
                             <th scope="col">Nombre del paciente</th>
                             <th scope="col">Edad</th>
                             <th scope="col">Género</th>
-                            <th scope="col">Dirección</th>
+                            <th scope="col">Dirección/Consultorio</th>
                             <th scope="col">Nombre del Medico</th>
                             <th scope="col">Fecha de la cita agendada</th>
                             <th scope="col">Notas</th>
+                            <th scope="col">Telefono</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +112,7 @@ function Citas() {
                             <td>Dr. Mario</td>
                             <td>07/10/2023</td>
                             <td>Voy en silla de ruedas</td>
+                            <td>722192812</td>
                             <th>
                                 <button type="button" class="btn btn-danger">Cancelar cita</button>
                                 <button type="button" class="btn btn-warning">Reagendar cita</button>
@@ -124,6 +126,7 @@ function Citas() {
                             <td>Dr. Mario</td>
                             <td>07/10/2023</td>
                             <td>Voy en silla de ruedas</td>
+                            <td>722192812</td>
                             <th>
                                 <button type="button" class="btn btn-danger">Cancelar cita</button>
                                 <button type="button" class="btn btn-warning">Reagendar cita</button>
@@ -137,6 +140,7 @@ function Citas() {
                             <td>Dr. Mario</td>
                             <td>07/10/2023</td>
                             <td>Voy en silla de ruedas</td>
+                            <td>722192812</td>
                             <th>
                                 <button type="button" class="btn btn-danger">Cancelar cita</button>
                                 <button type="button" class="btn btn-warning">Reagendar cita</button>

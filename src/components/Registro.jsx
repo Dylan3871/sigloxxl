@@ -103,7 +103,7 @@ export const Registro = () => {
         <input type="date" id="fecha-nacimiento" name="birth_date" onChange={handleChange} />
         {errores.birth_date && <span className="error">{errores.birth_date}</span>}
         
-        <label htmlFor="address">Dirección:</label>
+        <label htmlFor="address">Dirección/Consultorio:</label>
         <input type="text" id="address" name="address" onChange={handleChange} />
         {errores.address && <span className="error">{errores.address}</span>}
 
