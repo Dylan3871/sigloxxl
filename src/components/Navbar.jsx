@@ -1,56 +1,72 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import BurguerButton from './BurguerButton'
 
 function Navbar() {
 
-  const [clicked, setClicked] = useState(false)
-  const handleClick = () => {
-    //cuando esta true lo pasa a false y vice versa
-    setClicked(!clicked)
-  }
-  return (
-    <>
-      <NavContainer>
-      <a onClick={handleClick} href="./Inicio"><h2>Encuesta de riesgo Diabetes</h2></a>
-        <div className={`links ${clicked ? 'active' : ''}`}>
-          <a onClick={handleClick} href="./">Inicio</a>
-          <a onClick={handleClick} href="./Encuesta">Encuesta</a>
-          <a onClick={handleClick} href="./Citas">Citas</a>
-          <a onClick={handleClick} href="./Doctores">Doctores</a>
-          <a onClick={handleClick} href="./Registro">Registrar Médico</a>
-          <a onClick={handleClick} href="./Login">Iniciar sesión</a>
-        </div>
-        <div className='burguer'>
-          <BurguerButton clicked={clicked} handleClick={handleClick} />
-        </div>
-        <BgDiv className={`initial ${clicked ? ' active' : ''}`}></BgDiv>
-      </NavContainer>
-    </>
-  )
+    const [clicked, setClicked] = useState(false)
+    const [token, setToken] = useState(null);
+
+    const handleClick = () => {
+        //cuando esta true lo pasa a false y vice versa
+        setClicked(!clicked)
+    }
+
+    useEffect(() => {
+        const tokenValue = JSON.parse(localStorage.getItem('token'));
+        if (tokenValue) {
+            console.log('Token recuperado exitosamente: ' + tokenValue);
+            setToken(tokenValue);
+        }
+    }, []);
+
+    return (
+        <>
+            <NavContainer>
+                <a onClick={handleClick} href="./Inicio"><h2>Encuesta de riesgo Diabetes</h2></a>
+                <div className={`links ${clicked ? 'active' : ''}`}>
+                    <a onClick={handleClick} href="./">Inicio</a>
+                    <a onClick={handleClick} href="./Encuesta">Encuesta</a>
+                    <a onClick={handleClick} href="./Citas">Citas</a>
+                    <a onClick={handleClick} href="./Doctores">Doctores</a>
+                    <a onClick={handleClick} href="./Registro">Registrar Médico</a>
+                    {token === null ?
+                        (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : null}
+                </div>
+                <div className='burguer'>
+                    <BurguerButton clicked={clicked} handleClick={handleClick}/>
+                </div>
+                <BgDiv className={`initial ${clicked ? ' active' : ''}`}></BgDiv>
+            </NavContainer>
+        </>
+    )
 }
 
 export default Navbar
 
 const NavContainer = styled.nav`
-  h2{
+  h2 {
     color: white;
     font-weight: 400;
-    span{
+
+    span {
       font-weight: bold;
     }
   }
+
   padding: .4rem;
   background-color: #333;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  a{
+
+  a {
     color: white;
     text-decoration: none;
     margin-right: 1rem;
   }
-  .links{
+
+  .links {
     position: absolute;
     top: -700px;
     left: -2000px;
@@ -59,23 +75,27 @@ const NavContainer = styled.nav`
     margin-right: auto;
     text-align: center;
     transition: all .5s ease;
-    a{
+
+    a {
       color: white;
       font-size: 2rem;
       display: block;
     }
-    @media(min-width: 768px){
+
+    @media (min-width: 768px) {
       position: initial;
       margin: 0;
-      a{
+      a {
         font-size: 1rem;
         color: white;
         display: inline;
       }
+
       display: block;
     }
   }
-  .links.active{
+
+  .links.active {
     width: 100%;
     display: block;
     position: absolute;
@@ -85,14 +105,16 @@ const NavContainer = styled.nav`
     left: 0;
     right: 0;
     text-align: center;
-    a{
+
+    a {
       font-size: 2rem;
       margin-top: 1rem;
       color: white;
     }
   }
-  .burguer{
-    @media(min-width: 768px){
+
+  .burguer {
+    @media (min-width: 768px) {
       display: none;
     }
   }
@@ -106,9 +128,9 @@ const BgDiv = styled.div`
   width: 100%;
   height: 100%;
   z-index: -1;
-  transition: all .6s ease ;
-  
-  &.active{
+  transition: all .6s ease;
+
+  &.active {
     border-radius: 0 0 80% 0;
     top: 0;
     left: 0;

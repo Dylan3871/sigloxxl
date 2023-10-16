@@ -40,6 +40,8 @@ class EncuestaForm extends Component {
          <Navbar />
         <h1>Formulario de Encuesta</h1>
         <form onSubmit={this.handleSubmit}>
+        <div className="card pregunta perimetro">
+        <div className="card-body">
         <div className="pregunta edad">
         <div className="pregunta">
           <div>
@@ -57,9 +59,12 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
            {/*////////////////////////////////////////////////////////////////////////////////////////*/}
-
+          <div className="card pregunta perimetro">
+          <div className="card-body">
           <div className="pregunta imc">
           <div className="pregunta">
           <div>
@@ -76,10 +81,13 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
-
+          </div>
+          </div>
 
           {/*////////////////////////////////////////////////////////////////////////////////////////*/}
 
+          <div className="card pregunta perimetro">
+          <div className="card-body">
           <div className="pregunta perimetro">
           <div className="pregunta">
           <div>
@@ -98,10 +106,13 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
 
           {/*////////////////////////////////////////////////////////////////////////////////////////*/}
-
+          <div className="card pregunta perimetro">
+          <div className="card-body">
           <div className="pregunta actividad">
           <div className="pregunta">
           <div>
@@ -117,11 +128,14 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
  
         {/*////////////////////////////////////////////////////////////////////////////////////////*/}
 
-
+        <div className="card pregunta perimetro">
+        <div className="card-body">
           <div className="pregunta consumo">
           <div className="pregunta">
           <div>
@@ -137,9 +151,12 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
           {/*////////////////////////////////////////////////////////////////////////////////////////*/}
-
+        <div className="card pregunta perimetro">
+        <div className="card-body">
           <div className="pregunta hipertension">
           <div className="pregunta">
           <div>
@@ -155,11 +172,14 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
 
           {/*////////////////////////////////////////////////////////////////////////////////////////*/}
 
-
+        <div className="card pregunta perimetro">
+        <div className="card-body">
           <div className="pregunta glucosa">
           <div className="pregunta">
           <div>
@@ -175,9 +195,12 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
 
         {/*////////////////////////////////////////////////////////////////////////////////////////*/}
-
+        <div className="card pregunta perimetro">
+        <div className="card-body">
           <div className="pregunta antecedentes">
           <div className="pregunta">
           <div>
@@ -195,10 +218,12 @@ class EncuestaForm extends Component {
           </div>
           </div>
           </div>
+          </div>
+          </div>
           
        
           
-          <button type="submit">Calcular Puntaje</button>
+          <button class="calcular-btn">Calcular Puntaje</button>
         </form>
       </div>
     );

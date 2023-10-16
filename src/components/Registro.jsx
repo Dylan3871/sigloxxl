@@ -6,73 +6,49 @@ import '../assets/css/Registro.css';
 
 export const Registro = () => {
   const [formulario, setFormulario] = useState({
-    nombre: '',
+    name: '',
     email: '',
     password: '',
-    genero: '',
-    birth_date: '',
-    address: '',
-    cedula: '', // Agregamos el campo cedula
+    fecha_na: '',
+    no_cedula: '',
+    telefono: '', // Campo de teléfono añadido
+    consultorio: '',
   });
 
   const [errores, setErrores] = useState({
-    nombre: '',
+    name: '',
     email: '',
     password: '',
-    genero: '',
-    birth_date: '',
-    address: '',
-    cedula: '', // Agregamos el campo cedula
+    fecha_na: '',
+    no_cedula: '',
+    telefono: '',
+    consultorio: '',
   });
 
   const [enviado, setEnviado] = useState(false);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación de entrada
     let erroresTemp = {};
-    if (formulario.nombre.trim() === '') {
-      erroresTemp.nombre = 'El nombre es obligatorio';
-    }
-    if (formulario.genero.trim() === '') {
-      erroresTemp.genero = 'Debe seleccionar su género';
-    }
-    if (formulario.birth_date.trim() === '') {
-      erroresTemp.birth_date = 'La fecha de nacimiento es obligatoria';
-    }
-    if (formulario.address.trim() === '') {
-      erroresTemp.address = 'La dirección es obligatoria';
-    }
-    if (formulario.cedula.trim() === '') { // Validación para cedula
-      erroresTemp.cedula = 'La cédula es obligatoria';
-    } else if (!/^[0-9]+$/.test(formulario.cedula)) {
-      erroresTemp.cedula = 'La cédula debe contener solo números';
-    }
-    
-    if (formulario.email.trim() === '') {
-      erroresTemp.email = 'El correo electrónico es obligatorio';
-    } else if (!/\S+@\S+\.\S+/.test(formulario.email)) {
-      erroresTemp.email = 'El correo electrónico es inválido';
-    }
-    if (formulario.password.trim() === '') {
-      erroresTemp.password = 'La contraseña es obligatoria';
-    } else if (formulario.password.trim().length < 6) {
-      erroresTemp.password = 'La contraseña debe tener al menos 6 caracteres';
-    }
-    setErrores(erroresTemp);
 
-    // Si no hay errores, envía el formulario
+    // ... Validaciones ...
+
     if (Object.keys(erroresTemp).length === 0) {
       try {
-        const response = await axios.post('https://jsonplaceholder.typicode.com/posts', formulario);
+        const token = '06JpmVhudMG8XXFs1S6TDUbNXrzDGOblR9P20PSBc615ee48'; // Reemplaza esto con tu token real
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+        };
+
+        const response = await axios.post('http://127.0.0.1:8000/api/doctores/crear', formulario, { headers });
         console.log(response.data);
         setEnviado(true);
       } catch (error) {
@@ -84,32 +60,28 @@ export const Registro = () => {
   return (
     <div className="registro-container">
       <Navbar />
-     
+
       <form id="my-form" onSubmit={handleSubmit} className="registro-form">
         <h2>Registros</h2>
         <label htmlFor="name">Nombre:</label>
-        <input type="text" id="name" name="nombre" onChange={handleChange} />
-        {errores.nombre && <span className="error">{errores.nombre}</span>}
-    
-        <label htmlFor="tipo">Género:</label>
-        <select id="genero" name="genero" onChange={handleChange}>
-          <option value="">Seleccione una opción</option>
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
-          <option value="no-binario">No binario</option>
-        </select>
+        <input type="text" id="name" name="name" onChange={handleChange} />
+        {errores.name && <span className="error">{errores.name}</span>}
 
-        <label htmlFor="fecha-nacimiento">Fecha de nacimiento:</label>
-        <input type="date" id="fecha-nacimiento" name="birth_date" onChange={handleChange} />
-        {errores.birth_date && <span className="error">{errores.birth_date}</span>}
-        
-        <label htmlFor="address">Dirección:</label>
-        <input type="text" id="address" name="address" onChange={handleChange} />
-        {errores.address && <span className="error">{errores.address}</span>}
+        <label htmlFor="fecha-na">Fecha de nacimiento:</label>
+        <input type="date" id="fecha-na" name="fecha_na" onChange={handleChange} />
+        {errores.fecha_na && <span className="error">{errores.fecha_na}</span>}
+
+        <label htmlFor="consultorio">Dirección/Consultorio:</label>
+        <input type="text" id="consultorio" name="consultorio" onChange={handleChange} />
+        {errores.consultorio && <span className="error">{errores.consultorio}</span>}
 
         <label htmlFor="cedula">Cédula:</label>
-        <input type="text" id="cedula" name="cedula" onChange={handleChange} />
-        {errores.cedula && <span className="error">{errores.cedula}</span>}
+        <input type="text" id="cedula" name="no_cedula" onChange={handleChange} />
+        {errores.no_cedula && <span className="error">{errores.no_cedula}</span>}
+
+        <label htmlFor="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" onChange={handleChange} />
+        {errores.telefono && <span className="error">{errores.telefono}</span>}
 
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" name="email" onChange={handleChange} />
@@ -118,13 +90,11 @@ export const Registro = () => {
         <label htmlFor="password">Contraseña:</label>
         <input type="password" id="password" name="password" onChange={handleChange} />
         {errores.password && <span className="error">{errores.password}</span>}
-        
+
         {enviado && <span className="confirmacion">¡Registro exitoso!</span>}
 
         <button type="submit">Enviar</button>
-        <Link to="/" className="boton-regresaar">Regresar</Link>
-
-
+        <Link to="/" className="boton-regresar">Regresar</Link>
       </form>
     </div>
   );

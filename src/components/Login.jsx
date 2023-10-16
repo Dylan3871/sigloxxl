@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import '../assets/scss/Login.scss';
 import Navbar from './Navbar';
+import {API_URL} from "../Config";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,12 +17,14 @@ function Login() {
     event.preventDefault();
 
     axios
-      .post('/api/auth/login', { email, password })
+      .post(`${API_URL}/login`, { email, password })
       .then((response) => {
         setToken(response.data.token);
         setError(null);
-        // Redirigir a la página de inicio
+
+        // // Redirigir a la página de inicio
         window.location.replace('/');
+        // console.log(response);
       })
       .catch((error) => {
         setError('Email o contraseña incorrectos');
@@ -29,10 +32,15 @@ function Login() {
       });
   };
 
+  useEffect(() => {
+    localStorage.setItem('token', JSON.stringify(token))
+  }, [token]);
+
+
   return (
     <div>
       <Navbar />
-      <body className='bodyLogin'>
+      <div className='bodyLogin'>
         <div className='wrapperLogin'>
           <div className='innerLogin'>
 
@@ -71,7 +79,7 @@ function Login() {
             </form>
           </div>
         </div>
-      </body>
+      </div>
     </div>
   );
 }
