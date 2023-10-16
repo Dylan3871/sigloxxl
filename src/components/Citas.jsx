@@ -86,7 +86,7 @@ function Citas() {
                     </div>
                 </div>
             </div>
-            {/*Fin Agendra Cita */}
+            {/*Fin Agendar Cita */}
 
             {/* Tabla de Citas */}
             <div>
