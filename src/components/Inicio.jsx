@@ -34,7 +34,7 @@ const Inicio = () => {
                   src={diabetesImage}
                   alt="Diabetes Mellitus"
                   className="card-img-top"
-                  style={{ maxWidth: '250px', maxHeight: '300px' }} />
+                  style={{ maxWidth: '900px', maxHeight: '700px' }} />
               </div>
             </div>
           </div>
