@@ -11,8 +11,9 @@ export const Registro = () => {
     password: '',
     fecha_na: '',
     no_cedula: '',
-    telefono: '', // Campo de teléfono añadido
+    telefono: '',
     consultorio: '',
+    rol_id: '2', // Valor predeterminado: Doctor
   });
 
   const [errores, setErrores] = useState({
@@ -23,14 +24,17 @@ export const Registro = () => {
     no_cedula: '',
     telefono: '',
     consultorio: '',
+    rol_id: '',
   });
 
   const [enviado, setEnviado] = useState(false);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -90,6 +94,14 @@ export const Registro = () => {
         <label htmlFor="password">Contraseña:</label>
         <input type="password" id="password" name="password" onChange={handleChange} />
         {errores.password && <span className="error">{errores.password}</span>}
+
+        <label htmlFor="rol_id">Rol:</label>
+        <select id="rol_id" name="rol_id" onChange={handleChange} value={formulario.rol_id}>
+          <option value="1">Administrador</option>
+          <option value="2">Doctor</option>
+          <option value="3">Paciente</option>
+        </select>
+        {errores.rol_id && <span className="error">{errores.rol_id}</span>}
 
         {enviado && <span className="confirmacion">¡Registro exitoso!</span>}
 
