@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../assets/css/Tablas.css';
@@ -6,32 +6,70 @@ import Navbar from './Navbar';
 
 function Doctores() {
   const [doctores, setDoctores] = useState([]);
+  const [editingDoctor, setEditingDoctor] = useState(null);
+  const [config] = useState({
+    headers: {
+      'Authorization': 'Bearer OP7ejjCfl8iCNdpbmA5RHaqV2VNvsSBzThlrTDlk1ceeb7f0', // Reemplaza con tu token real
+    }
+  });
 
   useEffect(() => {
-    const token = 'OP7ejjCfl8iCNdpbmA5RHaqV2VNvsSBzThlrTDlk1ceeb7f0'; // Reemplaza con tu token real
-    const config = {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    };
-
-    async function fetchDoctores() {
-      try {
-        const response = await Axios.get('http://127.0.0.1:8000/api/doctores', config);
-        console.log('Respuesta de la API:', response.data.doctores);
-        if (response.status === 200) {
-          const data = response.data.doctores;
-          setDoctores(data);
-        } else {
-          console.error('Error al obtener doctores');
-        }
-      } catch (error) {
-        console.error('Error al obtener doctores', error);
-      }
-    }
-
     fetchDoctores();
   }, []);
+
+  const fetchDoctores = async () => {
+    try {
+      const response = await Axios.get('http://127.0.0.1:8000/api/doctores', config);
+      if (response.status === 200) {
+        const data = response.data.doctores;
+        setDoctores(data);
+      } else {
+        console.error('Error al obtener doctores');
+      }
+    } catch (error) {
+      console.error('Error al obtener doctores', error);
+    }
+  };
+
+  const handleEditarDoctor = (doctor) => {
+    setEditingDoctor(doctor);
+  };
+
+  const handleGuardarCambios = async (doctorId, fieldName, value) => {
+    const editedDoctor = {
+      id: doctorId,
+      [fieldName]: value,
+    };
+
+    try {
+      const response = await Axios.patch(`http://127.0.0.1:8000/api/doctores/${doctorId}/update`, editedDoctor, config);
+
+      if (response.status === 200) {
+        // Actualización exitosa en el servidor, actualiza el estado local y desactiva la edición
+        setEditingDoctor(null);
+        fetchDoctores(); // Actualiza la lista de doctores
+      } else {
+        console.error('Error al editar el doctor en el servidor');
+      }
+    } catch (error) {
+      console.error('Error al editar el doctor', error);
+    }
+  };
+
+  const handleEliminarDoctor = async (doctorId) => {
+    try {
+      const response = await Axios.delete(`http://127.0.0.1:8000/api/doctores/${doctorId}`, config);
+
+      if (response.status === 200) {
+        // Eliminación exitosa en el servidor, actualiza la lista de doctores
+        fetchDoctores();
+      } else {
+        console.error('Error al eliminar el doctor en el servidor');
+      }
+    } catch (error) {
+      console.error('Error al eliminar el doctor', error);
+    }
+  };
 
   return (
     <div>
@@ -55,17 +93,86 @@ function Doctores() {
             </tr>
           </thead>
           <tbody>
-            {doctores.map((doctor, index) => (
-              <tr key={index}>
-                <td>{doctor.name}</td>
-                <td>{doctor.email}</td>
-                <td>{doctor.fecha_na}</td>
-                <td>{doctor.no_cedula}</td>
-                <td>{doctor.telefono}</td>
-                <td>{doctor.consultorio}</td>
+            {doctores.map((doctor) => (
+              <tr key={doctor.id}>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="text"
+                      value={doctor.name}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'name', e.target.value)}
+                    />
+                  ) : (
+                    doctor.name
+                  )}
+                </td>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="text"
+                      value={doctor.email}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'email', e.target.value)}
+                    />
+                  ) : (
+                    doctor.email
+                  )}
+                </td>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="date"
+                      value={doctor.fecha_na}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'fecha_na', e.target.value)}
+                    />
+                  ) : (
+                    doctor.fecha_na
+                  )}
+                </td>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="text"
+                      value={doctor.no_cedula}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'no_cedula', e.target.value)}
+                    />
+                  ) : (
+                    doctor.no_cedula
+                  )}
+                </td>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="text"
+                      value={doctor.telefono}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'telefono', e.target.value)}
+                    />
+                  ) : (
+                    doctor.telefono
+                  )}
+                </td>
+                <td>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <input
+                      type="text"
+                      value={doctor.consultorio}
+                      onChange={(e) => handleGuardarCambios(doctor.id, 'consultorio', e.target.value)}
+                    />
+                  ) : (
+                    doctor.consultorio
+                  )}
+                </td>
                 <th>
-                  <button type="button" className="btn btn-danger">Eliminar</button>
-                  <button type="button" className="btn btn-warning">Editar Doctor</button>
+                  {editingDoctor && editingDoctor.id === doctor.id ? (
+                    <>
+                      <button type="button" className="btn btn-success" onClick={() => handleGuardarCambios(doctor.id)}>Guardar</button>
+                      <button type="button" className="btn btn-danger" onClick={() => handleEliminarDoctor(doctor.id)}>Eliminar</button>
+                    </>
+                  ) : (
+                    <>
+                      <button type="button" className="btn btn-danger" onClick={() => handleEliminarDoctor(doctor.id)}>Eliminar</button>
+                      <button type="button" className="btn btn-warning" onClick={() => handleEditarDoctor(doctor)}>Editar Doctor</button>
+                    </>
+                  )}
                 </th>
               </tr>
             ))}
