@@ -8,7 +8,7 @@ import Citas from './components/Citas';
 import Encuesta from './components/Encuesta';
 import Doctores from './components/Doctores';
 import Pacientes from './components/Pacientes';
-import { RegistroPacientes } from './components/RegistroPacientes';
+import RegistroPacientes from './components/RegistroPacientes';
 
 function App() {
   return (
