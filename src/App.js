@@ -8,6 +8,7 @@ import Citas from './components/Citas';
 import Encuesta from './components/Encuesta';
 import Doctores from './components/Doctores';
 import Pacientes from './components/Pacientes';
+import { RegistroPacientes } from './components/RegistroPacientes';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route exact path="/" element={<Inicio />} />
               <Route exact path="/Login" element={<Login />} />
               <Route exact path="/Registro" element={<Registro />} />
+              <Route exact path="/RegistroPacientes" element={<RegistroPacientes />} />
               <Route exact path="/Navbar" element={<Navbar />} />
               <Route exact path="/Encuesta" element={<Encuesta />} />
               <Route exact path="/Citas" element={<Citas />} />

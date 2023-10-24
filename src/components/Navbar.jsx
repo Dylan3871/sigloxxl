@@ -30,7 +30,8 @@ function Navbar() {
                     <a onClick={handleClick} href="./Citas">Citas</a>
                     <a onClick={handleClick} href="./Doctores">Doctores</a>
                     <a onClick={handleClick} href="./Pacientes">Pacientes</a>
-                    <a onClick={handleClick} href="./Registro">Registrarse</a>
+                    <a onClick={handleClick} href="./Registo">Registrar Doctor</a>
+                    <a onClick={handleClick} href="./RegistoPacientes">Registrarse</a>
                     {token === null ?
                         (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : null}
                 </div>

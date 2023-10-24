@@ -1,159 +1,178 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../assets/css/Tablas.css'
+import '../assets/css/Tablas.css';
 import Navbar from './Navbar';
+import api from './api'
+//import { API_URL } from '../Config';
 
 function Citas() {
+    const [patients, setPatients] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+    const [selectedDoctor, setSelectedDoctor] = useState('');
+    const [selectedPatient, setSelectedPatient] = useState('');
+    const [consultorio, setConsultorio] = useState('');
+    const [citas, setCitas] = useState([]);
+
+    useEffect(() => {
+        // Obtener lista de pacientes con rol_id igual a 3
+        api.get('/pacientes') // Utiliza el archivo de utilidad para realizar la solicitud
+            .then(response => {
+                setPatients(response.data);
+            })
+            .catch(error => {
+                console.error("Error al obtener pacientes: ", error);
+            });
+
+        // Obtener lista de médicos con rol_id igual a 2
+        api.get('/doctores') // Utiliza el archivo de utilidad para realizar la solicitud
+            .then(response => {
+                setDoctors(response.data);
+            })
+            .catch(error => {
+                console.error("Error al obtener doctores: ", error);
+            });
+
+        // Obtener lista de citas
+        api.get('/citas') // Utiliza el archivo de utilidad para realizar la solicitud
+            .then(response => {
+                setCitas(response.data);
+            })
+            .catch(error => {
+                console.error("Error al obtener citas: ", error);
+            });
+    }, []);
+
+    const handleDoctorChange = (event) => {
+        setSelectedDoctor(event.target.value);
+        // Aquí deberías obtener la dirección del consultorio del médico seleccionado
+        // Puedes hacer una nueva solicitud a la API para obtener esta información
+    };
+
+    const handlePatientChange = (event) => {
+        setSelectedPatient(event.target.value);
+    };
+
+    const handleSaveCita = () => {
+        // Aquí deberías enviar los datos de la cita a la API para guardarla
+        // Puedes usar Axios para realizar la solicitud POST a tu API
+    };
 
     return (
         <div>
             <Navbar />
             <div>
-                {/* Agendar una nueva cita*/}
-                {/* botón Modal */}
-                <button type="button" class="buttonCitas" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" className="buttonCitas" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Agendar Cita
                 </button>
 
-                {/* Modal */}
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Agendar Cita (Datos del paciente) </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Agendar Cita (Datos del paciente) </h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            {/* Cuerpo del Modal */}
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    <div class="col">
-                                        <label class="form-label">Nombre(s)</label>
-                                        <input type="text" class="form-control" placeholder="Nombre(s)" aria-label="First name"></input>
-                                    </div>
-                                    <div class="col">
-                                        <label class="form-label">Apellidos</label>
-                                        <input type="text" class="form-control" placeholder="Apellidos" aria-label="Last name"></input>
-                                    </div>
-                                    <div class="col-2">
-                                        <label class="form-label">Edad</label>
-                                        <input type="text" class="form-control" placeholder="Edad" aria-label="Last name"></input>
+                            <div className="modal-body">
+                                <div className="row g-3">
+                                    <div className="col">
+                                        <label className="form-label">Nombre del paciente</label>
+                                        {selectedPatient === '' && (
+                                            <select className="form-select" aria-label="Nombre del paciente" onChange={handlePatientChange}>
+                                                <option selected>Seleccione un paciente</option>
+                                                {Array.isArray(patients) && patients.length > 0 ? (
+                                                    patients.map(patient => (
+                                                        <option key={patient.id} value={patient.id}>{patient.name}</option>
+                                                    ))
+                                                ) : (
+                                                    <option value="" disabled>No hay pacientes disponibles</option>
+                                                )}
+
+                                            </select>
+                                        )}
+                                        {selectedPatient !== '' && (
+                                            <input type="text" className="form-control" value={patients.find(patient => patient.id === selectedPatient)?.name || ''} readOnly />
+                                        )}
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="form-label">Genero</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Seleccione su genero</option>
-                                        <option value="1">Masculino</option>
-                                        <option value="2">Femenino</option>
-                                        <option value="3">Otro</option>
+                                    <label className="form-label">Elija a su Doctor</label>
+                                    <select className="form-select" aria-label="Medico" onChange={handleDoctorChange}>
+                                        <option selected>Seleccione a su Médico</option>
+                                        {Array.isArray(doctors) && doctors.length > 0 ? (
+                                            doctors.map(doctor => (
+                                                <option key={doctor.id} value={doctor.id}>{doctor.name}</option>
+                                            ))
+                                        ) : (
+                                            <option value="" disabled>No hay médicos disponibles</option>
+                                        )}
+
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Dirección</label>
-                                    <input class="form-control form-control-sm" type="text" placeholder="Dirección" aria-label=".form-control-sm example"></input>
+                                <div className="mb-3">
+                                    <label className="form-label">Dirección del consultorio</label>
+                                    <input className="form-control form-control-sm" type="text" value={consultorio} readOnly />
                                 </div>
-                                <div>
-                                    <label class="form-label">Elija a su Medíco</label>
-                                    <select class="form-select" aria-label="Medico">
-                                        <option selected>Seleccione a su Médico de confianza</option>
-                                        <option value="1">Médico 1</option>
-                                        <option value="2">Médico 2</option>
-                                        <option value="3">Médico 3</option>
-                                    </select>
+                                <div className="mb-3">
+                                    <label htmlFor="fechaCita" className="form-label">Agende su cita</label>
+                                    <input type="date" className="form-control" id="fechaCita" name="fechaCita" />
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="birthdate" class="form-label">Agende su cita</label>
-                                    <input type="date" class="form-control" id="fechaCita" name="fechaCita"></input>
-                                </div>
-
-                                {/* <div class="mb-3">
-                                    <label for="formFileSm" class="form-label">Foto de perfil</label>
-                                    <input class="form-control form-control-sm" id="formFileSm" type="file"></input>
-                                </div> */}
-
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Notas (¿Algo que el Médico deba saber?)</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Notas (¿Algo que el Médico deba saber?)</label>
+                                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                             </div>
-                            {/* Fin de cuerpo del Modal */}
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-primary" onClick={handleSaveCita}>Guardar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {/*Fin Agendar Cita */}
 
-            {/* Tabla de Citas */}
-            <div>
-                <table class="table table-striped mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre del paciente</th>
-                            <th scope="col">Edad</th>
-                            <th scope="col">Género</th>
-                            <th scope="col">Dirección/Consultorio</th>
-                            <th scope="col">Nombre del Medico</th>
-                            <th scope="col">Fecha de la cita agendada</th>
-                            <th scope="col">Notas</th>
-                            <th scope="col">Telefono</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Juan Pablo</td>
-                            <td>20</td>
-                            <td>masculino</td>
-                            <td>Xonacatlá, Edo. Mex</td>
-                            <td>Dr. Mario</td>
-                            <td>07/10/2023</td>
-                            <td>Voy en silla de ruedas</td>
-                            <td>722192812</td>
-                            <th>
-                                <button type="button" class="btn btn-danger">Cancelar cita</button>
-                                <button type="button" class="btn btn-warning">Reagendar cita</button>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Juan Pablo</td>
-                            <td>20</td>
-                            <td>masculino</td>
-                            <td>Xonacatlá, Edo. Mex</td>
-                            <td>Dr. Mario</td>
-                            <td>07/10/2023</td>
-                            <td>Voy en silla de ruedas</td>
-                            <td>722192812</td>
-                            <th>
-                                <button type="button" class="btn btn-danger">Cancelar cita</button>
-                                <button type="button" class="btn btn-warning">Reagendar cita</button>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Juan Pablo</td>
-                            <td>20</td>
-                            <td>masculino</td>
-                            <td>Xonacatlá, Edo. Mex</td>
-                            <td>Dr. Mario</td>
-                            <td>07/10/2023</td>
-                            <td>Voy en silla de ruedas</td>
-                            <td>722192812</td>
-                            <th>
-                                <button type="button" class="btn btn-danger">Cancelar cita</button>
-                                <button type="button" class="btn btn-warning">Reagendar cita</button>
-                            </th>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-            {/* Fin Tabla de Citas */}
+                {/* Tabla de Citas */}
+                <div>
+                    <table className="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre del paciente</th>
+                                <th scope="col">Fecha de nacimiento</th>
+                                <th scope="col">Nombre del Médico</th>
+                                <th scope="col">Dirección/Consultorio</th>
+                                <th scope="col">Fecha de la cita agendada</th>
+                                <th scope="col">Notas</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(citas) && citas.length > 0 ? (
+                                citas.map(cita => (
+                                    <tr key={cita.id}>
+                                        <td>{cita.pacientes.name}</td>
+                                        <td>{cita.pacientes.fecha_na}</td>
+                                        <td>{cita.doctores.name}</td>
+                                        <td>{cita.doctores.consultorio}</td>
+                                        <td>{cita.fecha_consulta}</td>
+                                        <td>{cita.notas}</td>
+                                        <th>
+                                            <button type="button" className="btn btn-danger">Cancelar cita</button>
+                                            <button type="button" className="btn btn-warning">Reagendar cita</button>
+                                        </th>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6">No hay citas disponibles</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                {/* Fin Tabla de Citas */}
 
+            </div>
         </div>
-    )
+    );
 }
 
-export default Citas
+export default Citas;
