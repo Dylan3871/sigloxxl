@@ -1,46 +1,54 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BurguerButton from './BurguerButton'
+import LogoutButton from './LogoutButton'
 
 function Navbar() {
 
-    const [clicked, setClicked] = useState(false)
-    const [token, setToken] = useState(null);
+  const [clicked, setClicked] = useState(false)
+  const [token, setToken] = useState(null);
+  const handleLogout = () => {
+    alert('¡Te has desconectado!');
+  }
 
-    const handleClick = () => {
-        //cuando esta true lo pasa a false y vice versa
-        setClicked(!clicked)
+  const handleClick = () => {
+    //cuando esta true lo pasa a false y vice versa
+    setClicked(!clicked)
+  }
+
+  useEffect(() => {
+    const tokenValue = JSON.parse(localStorage.getItem('token'));
+    if (tokenValue) {
+      console.log('Token recuperado exitosamente: ' + tokenValue);
+      setToken(tokenValue);
     }
+  }, []);
 
-    useEffect(() => {
-        const tokenValue = JSON.parse(localStorage.getItem('token'));
-        if (tokenValue) {
-            console.log('Token recuperado exitosamente: ' + tokenValue);
-            setToken(tokenValue);
-        }
-    }, []);
-
-    return (
-        <>
-            <NavContainer>
-                <a onClick={handleClick} href="./Inicio"><h2>Encuesta de riesgo Diabetes</h2></a>
-                <div className={`links ${clicked ? 'active' : ''}`}>
-                    <a onClick={handleClick} href="./">Inicio</a>
-                    <a onClick={handleClick} href="./Encuesta">Encuesta</a>
-                    <a onClick={handleClick} href="./Citas">Citas</a>
-                    <a onClick={handleClick} href="./Doctores">Doctores</a>
-                    <a onClick={handleClick} href="./Pacientes">Pacientes</a>
-                    <a onClick={handleClick} href="./Registro">Registrarse</a>
-                    {token === null ?
-                        (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : null}
-                </div>
-                <div className='burguer'>
-                    <BurguerButton clicked={clicked} handleClick={handleClick}/>
-                </div>
-                <BgDiv className={`initial ${clicked ? ' active' : ''}`}></BgDiv>
-            </NavContainer>
-        </>
-    )
+  return (
+    <>
+      <NavContainer>
+        <a onClick={handleClick} href="./Inicio"><h2>Encuesta de riesgo Diabetes</h2></a>
+        <div className={`links ${clicked ? 'active' : ''}`}>
+          <a onClick={handleClick} href="./">Inicio</a>
+          <a onClick={handleClick} href="./Encuesta">Encuesta</a>
+          <a onClick={handleClick} href="./Citas">Citas</a>
+          <a onClick={handleClick} href="./Doctores">Doctores</a>
+          <a onClick={handleClick} href="./Pacientes">Pacientes</a>
+          <a onClick={handleClick} href="./Registro">Registrar Doctor</a>
+          <a onClick={handleClick} href="./RegistroPacientes">Registrarse</a>
+          {token === null ?
+            (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : null}
+        </div>
+        <li>
+            <LogoutButton /> {/* Agrega el botón de logout aquí */}
+          </li>
+        <div className='burguer'>
+          <BurguerButton clicked={clicked} handleClick={handleClick} />
+        </div>
+        <BgDiv className={`initial ${clicked ? ' active' : ''}`}></BgDiv>
+      </NavContainer>
+    </>
+  )
 }
 
 export default Navbar

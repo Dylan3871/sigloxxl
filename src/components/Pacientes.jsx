@@ -11,7 +11,7 @@ function Pacientes() {
 
   const config = {
     headers: {
-      'Authorization': 'Bearer OP7ejjCfl8iCNdpbmA5RHaqV2VNvsSBzThlrTDlk1ceeb7f0', // Reemplaza con tu token real
+      'Authorization': 'Bearer ultslzgfv9RaEcASqwc3H6pn0DvrvBytRdTDTwgQ2afe3c45', // Reemplaza con tu token real
     }
   };
 
