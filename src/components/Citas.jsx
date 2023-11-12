@@ -9,10 +9,12 @@ function Citas() {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [selectedPatient, setSelectedPatient] = useState('');
     const [fechaConsulta, setFechaConsulta] = useState('');
-    const [nota, setNota] = useState('');
+    // const [nota, setNota] = useState('');
     const [citas, setCitas] = useState([]);
     const [userInfo, setUserInfo] = useState({});
     const [showModal, setShowModal] = useState(false);
+    // Nuevo estado para manejar el modal después de realizar una acción
+    const [afterAction, setAfterAction] = useState(false);
 
     useEffect(() => {
         const config = {
@@ -91,14 +93,16 @@ function Citas() {
             .catch(error => {
                 console.error("Error al obtener citas: ", error);
             });
-    }, []);
+    }, [afterAction]);
 
     const handleShowModal = () => {
         setShowModal(true);
+        console.log('Modal mostrado'); // Añadir este log
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
+        resetModalData();  // Resetear los datos del modal
     };
 
     const handleDoctorChange = (event) => {
@@ -113,28 +117,41 @@ function Citas() {
         setFechaConsulta(event.target.value);
     };
 
-    const handleNotaChange = (event) => {
-        setNota(event.target.value);
+    // const handleNotaChange = (event) => {
+    //     setNota(event.target.value);
+    // };
+    
+    const resetModalData = () => {
+        setSelectedPatient('');
+        setSelectedDoctor('');
+        setFechaConsulta('');
+        // setNota('');  // Si es necesario resetear más estados, agrégales aquí
     };
 
     const handleGuardarCita = (event) => {
         event.preventDefault();
-
-        // Crear un objeto con los datos del formulario
+    
         const nuevaCita = {
             paciente_id: selectedPatient,
             medico_id: selectedDoctor,
             fecha_consulta: fechaConsulta,
-            nota: nota,
+            // nota: nota,
         };
-
-        // Realizar una solicitud POST al servidor para guardar la cita
+    
         axios.post('http://127.0.0.1:8000/api/citas/crear', nuevaCita, {
             headers: {
                 'Authorization': `Bearer m50r8lvbj5Tw7B2WhdeQS2Akhn0NYzH64CAP6Uan6b909fc9`,
                 'Content-Type': 'application/json',
             },
         })
+        .then(response => {
+            setShowModal(false);
+            setAfterAction(!afterAction);
+            resetModalData();  // Resetear los datos del modal
+        })
+        .catch(error => {
+            console.error("Error al guardar la cita: ", error);
+        });
     };
 
     const handleCancelCita = (citaId) => {
@@ -159,21 +176,21 @@ function Citas() {
         <div>
             <Navbar />
             <div>
+                {/* Botón modal */}
                 <button type="button" className="buttonCitas" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Agendar Cita
                 </button>
-                
-                <div className={`modal fade ${showModal ? 'show' : ''}`} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Agendar Cita</h5>
-                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseModal}>
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+
+                {/* Inicio del modal */}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agendar cita</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div className="modal-body">
-                                <form onSubmit={handleGuardarCita}>
+                            <div class="modal-body">
+                            <form onSubmit={handleGuardarCita}>
                                     <div className="form-group">
                                         <label htmlFor="paciente">Paciente</label>
                                         <select id="paciente" className="form-control" value={selectedPatient} onChange={handlePatientChange}>
@@ -198,19 +215,21 @@ function Citas() {
                                         <label htmlFor="fechaConsulta">Fecha de la cita</label>
                                         <input type="date" className="form-control" id="fechaConsulta" value={fechaConsulta} onChange={handleFechaConsultaChange} />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label htmlFor="nota">Nota</label>
                                         <textarea className="form-control" id="nota" value={nota} onChange={handleNotaChange}></textarea>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleCloseModal}>Cerrar</button>
-                                        <button type="button" className="btn btn-primary" onClick={handleGuardarCita}>Guardar Cita</button>
-                                    </div>
+                                    </div> */}
                                 </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" onClick={handleGuardarCita} data-bs-dismiss="modal">Agendar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* Fin  del modal */}
+
 
                 {/* Tabla de Citas */}
                 <div>
@@ -222,7 +241,7 @@ function Citas() {
                                 <th scope="col">Nombre del Médico</th>
                                 <th scope="col">Consultorio</th>
                                 <th scope="col">Fecha de la cita agendada</th>
-                                <th scope="col">Notas</th>
+                                {/* <th scope="col">Notas</th> */}
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -235,7 +254,7 @@ function Citas() {
                                         <td>{userInfo[cita.medico_id]?.name || ''}</td>
                                         <td>{userInfo[cita.medico_id]?.consultorio || ''}</td>
                                         <td>{cita.fecha_consulta}</td>
-                                        <td>{cita.nota}</td>
+                                        {/* <td>{cita.nota}</td> */}
                                         <th>
                                             <button type="button" className="btn btn-danger" onClick={() => handleCancelCita(cita.id)}>Cancelar cita</button>
                                             <button type="button" className="btn btn-warning">Reagendar cita</button>
