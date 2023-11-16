@@ -8,7 +8,6 @@ export const RegistroPacientes = () => {
   const [formulario, setFormulario] = useState({
     name: '',
     email: '',
-    password: '',
     fecha_na: '',
     telefono: '',
     rol_id: '2', // Valor predeterminado: Doctor
@@ -17,13 +16,13 @@ export const RegistroPacientes = () => {
   const [errores, setErrores] = useState({
     name: '',
     email: '',
-    password: '',
     fecha_na: '',
     telefono: '',
     rol_id: '',
   });
 
   const [enviado, setEnviado] = useState(false);
+  const [token, setToken] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,12 +42,12 @@ export const RegistroPacientes = () => {
 
     if (Object.keys(erroresTemp).length === 0) {
       try {
-        const token = '06JpmVhudMG8XXFs1S6TDUbNXrzDGOblR9P20PSBc615ee48'; // Reemplaza esto con tu token real
+        setToken(localStorage.getItem('token').replace(/['"]+/g, ''));
         const headers = {
           'Authorization': `Bearer ${token}`,
         };
 
-        const response = await axios.post('http://127.0.0.1:8000/api/doctores/crear', formulario, { headers });
+        const response = await axios.post('http://127.0.0.1:8000/api/pacientes/crear', formulario, { headers });
         console.log(response.data);
         setEnviado(true);
       } catch (error) {
@@ -78,11 +77,6 @@ export const RegistroPacientes = () => {
         <label htmlFor="email">Email:</label>
         <input type="email" id="email" name="email" onChange={handleChange} />
         {errores.email && <span className="error">{errores.email}</span>}
-
-        <label htmlFor="password">Contraseña:</label>
-        <input type="password" id="password" name="password" onChange={handleChange} />
-        {errores.password && <span className="error">{errores.password}</span>}
-
         {enviado && <span className="confirmacion">¡Registro exitoso!</span>}
 
         <button type="submit">Enviar</button>

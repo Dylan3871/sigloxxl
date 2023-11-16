@@ -6,15 +6,26 @@ import Navbar from './Navbar';
 
 function Doctores() {
   const [doctores, setDoctores] = useState([]);
+  const [token, setToken] = useState(null);
   const [editingDoctor, setEditingDoctor] = useState(null);
   const [config] = useState({
     headers: {
-      'Authorization': 'Bearer ultslzgfv9RaEcASqwc3H6pn0DvrvBytRdTDTwgQ2afe3c45', // Reemplaza con tu token real
+      'Authorization': `Bearer ${token}`, // Reemplaza con tu token real
     }
   });
 
   useEffect(() => {
-    fetchDoctores();
+    try {
+      setToken(localStorage.getItem('token').replace(/['"]+/g, ''));
+
+      if (token !== null) {
+        fetchDoctores();
+      }
+    }
+    catch (e) {
+        setToken(null);
+        console.log(e)
+    }
   }, []);
 
   const fetchDoctores = async () => {

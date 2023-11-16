@@ -1,28 +1,50 @@
-import React, { useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import BurguerButton from './BurguerButton'
 import LogoutButton from './LogoutButton'
+import {AuthContext} from "../context/AuthProvider";
+import axios from "axios";
+import {API_URL} from "../Config";
 
 function Navbar() {
 
   const [clicked, setClicked] = useState(false)
-  const [token, setToken] = useState(null);
-  const handleLogout = () => {
-    alert('¡Te has desconectado!');
-  }
+  const [rol, setRol] = useState(null);
+  const [tokenAccess, setTokenAccess] = useState(null);
+
+  const {auth} = useContext(AuthContext);
+
+
+  useEffect(() => {
+    try {
+      setTokenAccess(localStorage.getItem('token').replace(/['"]+/g, ''));
+
+      axios.get(API_URL +'/api/user', {
+        headers: {
+          Authorization: `Bearer ${tokenAccess}`
+        }
+      })
+          .then((response) => {
+            setRol(response.data.rol_id);
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    } catch (e) {
+      setTokenAccess(null);
+    }
+  }, [tokenAccess]);
 
   const handleClick = () => {
     //cuando esta true lo pasa a false y vice versa
     setClicked(!clicked)
   }
 
-  useEffect(() => {
-    const tokenValue = JSON.parse(localStorage.getItem('token'));
-    if (tokenValue) {
-      console.log('Token recuperado exitosamente: ' + tokenValue);
-      setToken(tokenValue);
-    }
-  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.replace('/');
+  }
 
   return (
     <>
@@ -31,17 +53,23 @@ function Navbar() {
         <div className={`links ${clicked ? 'active' : ''}`}>
           <a onClick={handleClick} href="./">Inicio</a>
           <a onClick={handleClick} href="./Encuesta">Encuesta</a>
-          <a onClick={handleClick} href="./Citas">Citas</a>
-          <a onClick={handleClick} href="./Doctores">Doctores</a>
-          <a onClick={handleClick} href="./Pacientes">Pacientes</a>
-          <a onClick={handleClick} href="./Registro">Registrar Doctor</a>
-          <a onClick={handleClick} href="./RegistroPacientes">Registrarse</a>
-          {token === null ?
-            (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : null}
+          {auth ? (<>{rol !== 3 ? (<a onClick={handleClick} href="./Citas">Citas</a>) : null}
+            {rol === 1 ? (
+                <>
+                  <a onClick={handleClick} href="./Doctores">Doctores</a>
+                  <a onClick={handleClick} href="./Registro">Registrar Médico</a>
+                  <a onClick={handleClick} href="./Pacientes">Pacientes</a>
+                </>
+              ) : null}
+            { rol === 2 ? (<>
+                  <a onClick={handleClick} href="./Pacientes">Pacientes</a>
+                  <a onClick={handleClick} href="./RegistroPacientes">Registrar pacientes</a>
+                </>
+              ) : null}
+          </>) : null}
+          {tokenAccess === null ? (<a onClick={handleClick} href="./Login">Iniciar sesión</a>) : (
+              <a onClick={handleLogout} href="./">Cerrar sesión</a>)}
         </div>
-        <li>
-            <LogoutButton /> {/* Agrega el botón de logout aquí */}
-          </li>
         <div className='burguer'>
           <BurguerButton clicked={clicked} handleClick={handleClick} />
         </div>

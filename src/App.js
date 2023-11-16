@@ -9,12 +9,14 @@ import Encuesta from './components/Encuesta';
 import Doctores from './components/Doctores';
 import Pacientes from './components/Pacientes';
 import RegistroPacientes from './components/RegistroPacientes';
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
     <div className="App">
       <header>
         <div>
+          <AuthProvider>
           <BrowserRouter>
             <Routes>
               <Route exact path="/" element={<Inicio />} />
@@ -28,6 +30,7 @@ function App() {
               <Route exact path="/Pacientes" element={<Pacientes />} />
             </Routes>
           </BrowserRouter>
+          </AuthProvider>
         </div>
       </header>
     </div>
