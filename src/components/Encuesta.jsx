@@ -158,12 +158,14 @@ calcularPuntaje = () => {
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario.
       });
   };
+  
   render() {
   
     return (
-     
+      <div className="body-specific">
       <div>
          <Navbar />
+         <div class="containe1r">
         <h1>Encuesta de Diabetes Mellitus</h1>
         <form onSubmit={this.handleSubmit}>
         <div className="card pregunta perimetro">
@@ -350,14 +352,43 @@ calcularPuntaje = () => {
             </button>
             </form>
             {this.state.puntaje !== null && (
-  <div className="resultado">
+              
+
+<div className="RES">
+  <div className="RES1-content">
     <p>Puntaje: {this.state.puntaje}</p>
     <p>Interpretación: {this.interpretarPuntaje(this.state.puntaje)}</p>
   </div>
+  </div>
+  
 )}
+
+</div>
       </div>
+    {/*margen de  redes sociales*/}
+    <div className="footer-box">
+    <div className="address">
+        <p>UBICACIÓN:Calzada de Barbabosa No. 150, San Antonio Buenavista; Zinacantepec, Toluca Edo. de México CP. 51350.</p>
+    </div>
+    <div className="social-icons">
+        {/* Enlaces a tus perfiles de redes sociales */}
+        <a href="https://www.facebook.com/profile.php?id=100090304582551&locale=es_LA" target="_blank" rel="noopener noreferrer">
+          <i className="social-icon fab fa-facebook"></i>
+        </a>
+        <a href="https://maps.app.goo.gl/pwgyS9d4bPB1VaG18" target="_blank" rel="noopener noreferrer">
+          <i className="social-icon fab fa-google maps"></i>
+        </a>
+        <a href="https://www.instagram.com/grupoeducativosiglo21/" target="_blank" rel="noopener noreferrer">
+          <i className="social-icon fab fa-instagram"></i>
+        </a>
+      </div>
+</div>
+      </div>
+      
     );
   }
 }
+
+
 
 export default EncuestaForm;
