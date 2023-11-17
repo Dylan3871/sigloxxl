@@ -30,7 +30,11 @@ function Citas() {
               setToken(null);
           }
 
-    
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        };
 
             // Obtener pacientes
             axios.get('http://127.0.0.1:8000/api/pacientes', {
@@ -166,7 +170,7 @@ function Citas() {
             resetModalData();  // Resetear los datos del modal
         })
         .catch(error => {
-            console.error("Error al guardar la cita: ", error);
+            console.error("Error al guardar la cita: ", error.response.data);
         });
     };
 
@@ -187,6 +191,9 @@ function Citas() {
                 console.error("Error al cancelar la cita: ", error);
             });
     };
+
+
+    console.log(fechaConsulta);
 
     return (
         <div>

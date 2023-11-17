@@ -47,7 +47,7 @@ export const Registro = () => {
 
     if (Object.keys(erroresTemp).length === 0) {
       try {
-        const token = 'HzfBVzW4feCIVsuYfVLObNDJyYA1uuGDAd3XZqPP98ab127a'; // Reemplaza esto con tu token real
+        const token = 'r4oPo9J8xXdMDWNx6D7eejavOHrWkwuVQD58tGYS7ee6f678'; // Reemplaza esto con tu token real
         const headers = {
           'Authorization': `Bearer ${token}`,
         };
