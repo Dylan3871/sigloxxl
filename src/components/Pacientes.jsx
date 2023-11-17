@@ -1,37 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import React, {useState, useEffect, useContext} from 'react';
+import axios from 'axios';
+import {API_URL} from "../Config";
+import Navbar from './Navbar';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../assets/css/Tablas.css';
-
-import Navbar from './Navbar'; // Importa la componente Navbar
+import {AuthContext} from "../context/AuthProvider";
 
 function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [editingPaciente, setEditingPaciente] = useState(null);
+  const [token, setToken] = useState('');
 
-  const config = {
-    headers: {
-      'Authorization': 'Bearer ultslzgfv9RaEcASqwc3H6pn0DvrvBytRdTDTwgQ2afe3c45', // Reemplaza con tu token real
-    }
-  };
+ const getPacientes = () => {
+   axios.get(API_URL + '/api/pacientes', {
+     headers: {
+       Authorization: `Bearer ${token}`
+     }
+   })
+       .then((response) => {
+         setPacientes(response.data.pacientes)
+         // console.log(response.data);
+       })
+       .catch((error) => {
+         // console.error(error);
+       });
+ }
+
 
   useEffect(() => {
-    fetchPacientes();
-  }, []);
-
-  const fetchPacientes = async () => {
     try {
-      const response = await Axios.get('http://127.0.0.1:8000/api/pacientes', config);
-      if (response.status === 200) {
-        const data = response.data.pacientes;
-        setPacientes(data);
-      } else {
-        console.error('Error al obtener pacientes');
-      }
-    } catch (error) {
-      console.error('Error al obtener pacientes', error);
+      setToken(localStorage.getItem('token').replace(/['"]+/g, ''));
+      getPacientes();
+    } catch (e) {
+      setToken(null);
     }
-  };
+  }, [token]);
+
 
   const handleEditarPaciente = (paciente) => {
     setEditingPaciente(paciente);
@@ -44,12 +49,16 @@ function Pacientes() {
     };
 
     try {
-      const response = await Axios.patch(`http://127.0.0.1:8000/api/doctores/${doctoresId}/update`, editeddoctores, config);
+      const response = await axios.patch(`http://127.0.0.1:8000/api/doctores/${doctoresId}/update`, editeddoctores, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      });
 
       if (response.status === 200) {
         // Actualización exitosa en el servidor, actualiza el estado local y desactiva la edición
         setEditingPaciente(null);
-        fetchPacientes(); // Actualiza la lista de pacientes
+        getPacientes();
       } else {
         console.error('Error al editar el paciente en el servidor');
       }
@@ -60,11 +69,15 @@ function Pacientes() {
 
   const handleEliminarPaciente = async (doctoresId) => {
     try {
-      const response = await Axios.delete(`http://127.0.0.1:8000/api/doctores/${doctoresId}`, config);
+      const response = await axios.delete(`http://127.0.0.1:8000/api/doctores/${doctoresId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      });
 
       if (response.status === 200) {
         // Eliminación exitosa en el servidor, actualiza la lista de pacientes
-        fetchPacientes();
+        getPacientes();
       } else {
         console.error('Error al eliminar el paciente en el servidor');
       }
@@ -88,10 +101,7 @@ function Pacientes() {
               <th scope="col">Nombre del Paciente</th>
               <th scope="col">Email</th>
               <th scope="col">Fecha de Nacimiento</th>
-              <th scope="col">Número de Cédula</th>
               <th scope="col">Número de Teléfono</th>
-              <th scope="col">Consultorio</th>
-              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -134,33 +144,11 @@ function Pacientes() {
                   {editingPaciente && editingPaciente.id === paciente.id ? (
                     <input
                       type="text"
-                      value={paciente.no_cedula}
-                      onChange={(e) => handleGuardarCambios(paciente.id, 'no_cedula', e.target.value)}
-                    />
-                  ) : (
-                    paciente.no_cedula
-                  )}
-                </td>
-                <td>
-                  {editingPaciente && editingPaciente.id === paciente.id ? (
-                    <input
-                      type="text"
                       value={paciente.telefono}
                       onChange={(e) => handleGuardarCambios(paciente.id, 'telefono', e.target.value)}
                     />
                   ) : (
                     paciente.telefono
-                  )}
-                </td>
-                <td>
-                  {editingPaciente && editingPaciente.id === paciente.id ? (
-                    <input
-                      type="text"
-                      value={paciente.consultorio}
-                      onChange={(e) => handleGuardarCambios(paciente.id, 'consultorio', e.target.value)}
-                    />
-                  ) : (
-                    paciente.consultorio
                   )}
                 </td>
                 <th>

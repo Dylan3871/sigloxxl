@@ -1,41 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, {useState, useContext} from 'react';
 import '../assets/scss/Login.scss';
 import Navbar from './Navbar';
-import {API_URL} from "../Config";
+import {AuthContext} from "../context/AuthProvider";
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [token, setToken] = useState(null);
+
+  const {login} = useContext(AuthContext);
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    axios
-      .post(`${API_URL}/login`, { email, password })
-      .then((response) => {
-        setToken(response.data.token);
-        setError(null);
-
-        // // Redirigir a la página de inicio
-        window.location.replace('/');
-        // console.log(response);
-      })
-      .catch((error) => {
-        setError('Email o contraseña incorrectos');
-        setToken(null);
-      });
+    login(email, password);
   };
-
-  useEffect(() => {
-    localStorage.setItem('token', JSON.stringify(token))
-  }, [token]);
-
 
   return (
     <div>
@@ -69,11 +49,9 @@ function Login() {
                 />
               </div>
               <div className='form-loginLogin'>
-                {error && <div>{error}</div>}
                 <button className='buttonLogin' type='submit'>
                   Acceder
                 </button>
-
               </div>
             </form>
           </div>

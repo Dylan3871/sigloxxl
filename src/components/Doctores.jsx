@@ -6,20 +6,18 @@ import Navbar from './Navbar';
 
 function Doctores() {
   const [doctores, setDoctores] = useState([]);
+  const [token, setToken] = useState(null);
   const [editingDoctor, setEditingDoctor] = useState(null);
-  const [config] = useState({
-    headers: {
-      'Authorization': 'Bearer ultslzgfv9RaEcASqwc3H6pn0DvrvBytRdTDTwgQ2afe3c45', // Reemplaza con tu token real
-    }
-  });
 
-  useEffect(() => {
-    fetchDoctores();
-  }, []);
+
 
   const fetchDoctores = async () => {
     try {
-      const response = await Axios.get('http://127.0.0.1:8000/api/doctores', config);
+      const response = await Axios.get('http://127.0.0.1:8000/api/doctores', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         const data = response.data.doctores;
         setDoctores(data);
@@ -30,6 +28,16 @@ function Doctores() {
       console.error('Error al obtener doctores', error);
     }
   };
+
+  useEffect(() => {
+    try {
+      setToken(localStorage.getItem('token').replace(/['"]+/g, ''));
+      fetchDoctores();
+    }
+    catch (e) {
+        setToken(null);
+    }
+  }, [token]);
 
   const handleEditarDoctor = (doctor) => {
     setEditingDoctor(doctor);
@@ -42,7 +50,11 @@ function Doctores() {
     };
 
     try {
-      const response = await Axios.patch(`http://127.0.0.1:8000/api/doctores/${doctorId}/update`, editedDoctor, config);
+      const response = await Axios.patch(`http://127.0.0.1:8000/api/doctores/${doctorId}/update`, editedDoctor, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      });
 
       if (response.status === 200) {
         // Actualización exitosa en el servidor, actualiza el estado local y desactiva la edición
@@ -58,7 +70,11 @@ function Doctores() {
 
   const handleEliminarDoctor = async (doctorId) => {
     try {
-      const response = await Axios.delete(`http://127.0.0.1:8000/api/doctores/${doctorId}`, config);
+      const response = await Axios.delete(`http://127.0.0.1:8000/api/doctores/${doctorId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      });
 
       if (response.status === 200) {
         // Eliminación exitosa en el servidor, actualiza la lista de doctores
