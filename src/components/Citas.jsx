@@ -30,11 +30,7 @@ function Citas() {
               setToken(null);
           }
 
-          const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        };
+    
 
             // Obtener pacientes
             axios.get('http://127.0.0.1:8000/api/pacientes', {
