@@ -16,7 +16,7 @@ export const Registro = () => {
     rol_id: '2', // Valor predeterminado: Doctor
   });
 
-  const [errores, setErrores] = useState({
+  const [errores] = useState({
     name: '',
     email: '',
     password: '',

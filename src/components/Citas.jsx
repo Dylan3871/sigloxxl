@@ -12,23 +12,23 @@ function Citas() {
     // const [nota, setNota] = useState('');
     const [citas, setCitas] = useState([]);
     const [userInfo, setUserInfo] = useState({});
-    const [showModal, setShowModal] = useState(false);
+    //const [showModal, setShowModal] = useState(false);
     // Nuevo estado para manejar el modal después de realizar una acción
     const [afterAction, setAfterAction] = useState(false);
     const [token, setToken] = useState(null);
-    const [config] = useState({
-        headers: {
-          'Authorization': `Bearer ${token}`, // Reemplaza con tu token real
-        }
-      });
+    //const [config] = useState({
+      //  headers: {
+        //  'Authorization': `Bearer ${token}`, // Reemplaza con tu token real
+        //}
+//});
 
     useEffect(() => {
         try {
             setToken(localStorage.getItem('token').replace(/['"]+/g, ''));
-          }
-          catch (e) {
-              setToken(null);
-          }
+        }
+        catch (e) {
+            setToken(null);
+        }
 
         const config = {
             headers: {
@@ -111,20 +111,13 @@ function Citas() {
                     console.error("La respuesta de citas no es un array:", response.data);
                 }
             })
+
             .catch(error => {
                 console.error("Error al obtener citas: ", error);
             });
-    }, [afterAction], [token]);
+    }, [afterAction, token, userInfo]);
 
-    const handleShowModal = () => {
-        setShowModal(true);
-        console.log('Modal mostrado'); // Añadir este log
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-        resetModalData();  // Resetear los datos del modal
-    };
+    
 
     const handleDoctorChange = (event) => {
         setSelectedDoctor(event.target.value);
@@ -165,12 +158,12 @@ function Citas() {
             }
         })
         .then(response => {
-            setShowModal(false);
+            //setShowModal(false);
             setAfterAction(!afterAction);
             resetModalData();  // Resetear los datos del modal
         })
         .catch(error => {
-            console.error("Error al guardar la cita: ", error.response.data);
+            console.error("Error al guardar la cita: ", error);
         });
     };
 
@@ -192,8 +185,6 @@ function Citas() {
             });
     };
 
-
-    console.log(fechaConsulta);
 
     return (
         <div>

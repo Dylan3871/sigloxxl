@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import BurguerButton from './BurguerButton'
-import LogoutButton from './LogoutButton'
+//import LogoutButton from './LogoutButton'
 import {AuthContext} from "../context/AuthProvider";
 import axios from "axios";
 import {API_URL} from "../Config";

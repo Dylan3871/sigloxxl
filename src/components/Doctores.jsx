@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../assets/css/Tablas.css';
@@ -11,7 +11,7 @@ function Doctores() {
 
 
 
-  const fetchDoctores = async () => {
+  const fetchDoctores = useCallback(async () => {
     try {
       const response = await Axios.get('http://127.0.0.1:8000/api/doctores', {
         headers: {
@@ -27,7 +27,7 @@ function Doctores() {
     } catch (error) {
       console.error('Error al obtener doctores', error);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     try {
@@ -37,7 +37,7 @@ function Doctores() {
     catch (e) {
         setToken(null);
     }
-  }, [token]);
+  }, [token, fetchDoctores]);
 
   const handleEditarDoctor = (doctor) => {
     setEditingDoctor(doctor);

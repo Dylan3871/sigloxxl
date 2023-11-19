@@ -6,7 +6,7 @@ import '../assets/scss/Inicio.scss';
 import imagen1 from '../assets/images/azucar.jpg';
 import imagen2 from '../assets/images/diabetes.png';
 import imagen3 from '../assets/images/diabetesimg.jpg';
-import diabetesImage from '../assets/images/siglo21.png';
+//import diabetesImage from '../assets/images/siglo21.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 
@@ -46,11 +46,11 @@ const Inicio = () => {
                     <div className="col-md-6">
                         <div className="diabetes-title-wrapper">
                             {/* Imagen pequeña al lado del título */}
-                            <img
+                            {/* <img
                                 src={diabetesImage}
                                 alt="Diabetes Image"
                                 className="diabetes-image-small img-fluid"
-                            />
+                            /> */}
                             <h2 className="diabetes-title">
                                 <span className=".diabetes-title ">Diabetes Mellitus</span>
                             </h2>

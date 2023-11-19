@@ -26,7 +26,7 @@ function Login() {
 
             <form className='formLogin' id='form_login' onSubmit={handleSubmit}>
               <h3 className='h3Login'>
-                <a className='aLogin'>Iniciar Sesión</a>
+                <a href className='aLogin'>Iniciar Sesión</a>
               </h3>
               <div className='form-holderLogin active'>
                 <input

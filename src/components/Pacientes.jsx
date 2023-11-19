@@ -1,31 +1,36 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
 import {API_URL} from "../Config";
 import Navbar from './Navbar';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../assets/css/Tablas.css';
-import {AuthContext} from "../context/AuthProvider";
+//import {AuthContext} from "../context/AuthProvider";
+
+
 
 function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [editingPaciente, setEditingPaciente] = useState(null);
   const [token, setToken] = useState('');
 
- const getPacientes = () => {
+ const getPacientes = useCallback(() => {
    axios.get(API_URL + '/api/pacientes', {
      headers: {
        Authorization: `Bearer ${token}`
      }
    })
-       .then((response) => {
-         setPacientes(response.data.pacientes)
+
+   
+      .then((response) => {
+      setPacientes(response.data.pacientes)
          // console.log(response.data);
-       })
-       .catch((error) => {
+      })
+      .catch((error) => {
+
          // console.error(error);
-       });
- }
+      });
+}, [token]);
 
 
   useEffect(() => {
@@ -35,7 +40,7 @@ function Pacientes() {
     } catch (e) {
       setToken(null);
     }
-  }, [token]);
+  }, [token, getPacientes]);
 
 
   const handleEditarPaciente = (paciente) => {
