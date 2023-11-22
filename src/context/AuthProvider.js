@@ -27,11 +27,11 @@ export function AuthProvider({ children }) {
             })
             .catch(e => {
                 console.log(`login error ${e}`);
-                //window.location.replace('/');
+                window.location.replace('/');
             })
             .finally(() => {
                 setIsLoading(false);
-                //window.location.replace('/');
+                window.location.replace('/');
             });
     };
 
