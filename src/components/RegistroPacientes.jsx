@@ -47,7 +47,7 @@ export const RegistroPacientes = () => {
           'Authorization': `Bearer ${token}`,
         };
 
-        const response = await axios.post('http://127.0.0.1:8000/api/pacientes/crear', formulario, { headers });
+        const response = await axios.post('https://sigloxxi.alwaysdata.net/api/pacientes/crear', formulario, { headers });
         console.log(response.data);
         setEnviado(true);
       } catch (error) {

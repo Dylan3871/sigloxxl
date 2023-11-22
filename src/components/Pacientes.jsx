@@ -54,7 +54,7 @@ function Pacientes() {
     };
 
     try {
-      const response = await axios.patch(`http://127.0.0.1:8000/api/doctores/${doctoresId}/update`, editeddoctores, {
+      const response = await axios.patch(`https://sigloxxi.alwaysdata.net/api/doctores/${doctoresId}/update`, editeddoctores, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
@@ -74,7 +74,7 @@ function Pacientes() {
 
   const handleEliminarPaciente = async (doctoresId) => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/doctores/${doctoresId}`, {
+      const response = await axios.delete(`https://sigloxxi.alwaysdata.net/api/doctores/${doctoresId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }

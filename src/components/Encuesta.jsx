@@ -134,7 +134,7 @@ calcularPuntaje = () => {
     this.calcularPuntaje();
 
     // URL de la API 
-      const apiUrl = 'http://127.0.0.1:8000/api/encuesta';
+      const apiUrl = 'https://sigloxxi.alwaysdata.net/api/encuesta';
 
       const data = {
         edad: this.state.edad,

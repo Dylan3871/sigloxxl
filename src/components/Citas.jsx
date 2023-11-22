@@ -37,7 +37,7 @@ function Citas() {
         };
 
             // Obtener pacientes
-            axios.get('http://127.0.0.1:8000/api/pacientes', {
+            axios.get('https://sigloxxi.alwaysdata.net/api/pacientes', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -60,7 +60,7 @@ function Citas() {
                 });
 
         // Obtener médicos y pacientes al mismo tiempo
-        axios.get('http://127.0.0.1:8000/api/doctores', config)
+        axios.get('https://sigloxxi.alwaysdata.net/api/doctores', config)
             .then(response => {
                 console.log("Respuesta de usuarios (doctores):", response.data);
                 if (Array.isArray(response.data.doctores)) {
@@ -72,7 +72,7 @@ function Citas() {
                     });
 
                         // Obtener información de usuarios (pacientes)
-                        axios.get('http://127.0.0.1:8000/api/pacientes', {
+                        axios.get('https://sigloxxi.alwaysdata.net/api/pacientes', {
                             headers: {
                                 Authorization: `Bearer ${token}`,
                             }
@@ -102,7 +102,7 @@ function Citas() {
                 });
 
         // Obtener citas
-        axios.get('http://127.0.0.1:8000/api/citas', config)
+        axios.get('https://sigloxxi.alwaysdata.net/api/citas', config)
             .then(response => {
                 console.log("Respuesta de citas:", response.data);
                 if (Array.isArray(response.data.citas)) {
@@ -152,7 +152,7 @@ function Citas() {
             // nota: nota,
         };
     
-        axios.post('http://127.0.0.1:8000/api/citas/crear', nuevaCita, {
+        axios.post('https://sigloxxi.alwaysdata.net/api/citas/crear', nuevaCita, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -174,7 +174,7 @@ function Citas() {
                 Authorization: `Bearer ${token}`,
             }
         };
-        axios.delete(`http://127.0.0.1:8000/api/citas/${citaId}`, config)
+        axios.delete(`https://sigloxxi.alwaysdata.net/api/citas/${citaId}`, config)
             .then(response => {
                 // Elimina la cita del estado local
                 const updatedCitas = citas.filter(cita => cita.id !== citaId);

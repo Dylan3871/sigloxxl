@@ -13,7 +13,7 @@ function Doctores() {
 
   const fetchDoctores = useCallback(async () => {
     try {
-      const response = await Axios.get('http://127.0.0.1:8000/api/doctores', {
+      const response = await Axios.get('https://sigloxxi.alwaysdata.net/api/doctores', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +50,7 @@ function Doctores() {
     };
 
     try {
-      const response = await Axios.patch(`http://127.0.0.1:8000/api/doctores/${doctorId}/update`, editedDoctor, {
+      const response = await Axios.patch(`https://sigloxxi.alwaysdata.net/api/doctores/${doctorId}/update`, editedDoctor, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
@@ -70,7 +70,7 @@ function Doctores() {
 
   const handleEliminarDoctor = async (doctorId) => {
     try {
-      const response = await Axios.delete(`http://127.0.0.1:8000/api/doctores/${doctorId}`, {
+      const response = await Axios.delete(`https://sigloxxi.alwaysdata.net/api/doctores/${doctorId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
